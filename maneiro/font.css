@@ -1,0 +1,7 @@
+@font-face {
+    font-family: "fonttop";
+    src:url("font/providencesansregular.ttf") format("truetype");
+}
+.fonttop {
+font-family: "fonttop";
+}

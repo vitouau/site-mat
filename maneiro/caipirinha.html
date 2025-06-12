@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body class="bg-amber-500">
+    <div class="w-screen h-screen overflow-x-hidden" id="app">
+        <div class="relative h-[23%] bg-[url('img/fundo.png')] justify-evenly items-center flex">
+            <img class="h-[100%] top-0 left-3 absolute" src="img/slae.png">
+            <img class="h-[140%] mb-[4.4vw]" src="img/kid.png">
+            <img class="h-[100%] top-0 right-3 absolute" src="img/slad.png">
+                <div class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center items-center flex-col">
+                    <p class="font-bold text-[3vw] text-amber-500 fonttop">PROMO ‎ ‎ ‎ ‎ ‎  JUNINA</p>
+                </div>
+                <div class="absolute top-[5%] right-[5%] flex gap-[2vw] items-center">
+                    <i class="text-white fa-solid fa-magnifying-glass"></i>
+                    <i class="text-white fa-solid fa-cart-shopping"></i>
+                    <i class="text-white fa-solid fa-user"></i>
+                </div>
+        </div>
+        <div class="h-[67%] space-y-[1vw]">
+            <div class="h-[12%] flex justify-center items-end">
+                <p class="text-white font-bold text-[1.6vw] fonttop">MAIS VENDIDOS</p>
+            </div>
+            <div class="h-[88%] flex justify-center items-center flex-wrap gap-[1vw]">
+                <div v-for="sla in caipirinha" class="w-[20vw] h-[25vw] bg-slate-100 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] flex justify-center items-center flex-col gap-[1vw]">
+                    <img class="h-[50%]" :src='sla.img'>
+                    <p class="font-bold text-[1.6vw]">{{sla.name}}</p>
+                    <p>R$ {{sla.price}}</p>
+                    <button class="bg-blue-500 text-white p-[1vw] rounded-[0.4vw] hover:bg-blue-600">ADCIONAR AO CARRINHO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

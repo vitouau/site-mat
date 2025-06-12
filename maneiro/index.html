@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="w-screen h-screen overflow-x-hidden" id="app">
+        <div class="relative h-[23%] bg-[url('img/fundo.png')] justify-evenly items-center flex">
+            <img class="h-[100%]" src="img/6.png">
+            <img class="h-[140%] mb-[4vw]" src="img/5.png">
+            <img class="h-[100%]" src="img/6.png">
+                <div class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center items-center flex-col">
+                    <p class="text-white font-bold text-[1.6vw] fonttop">PROMO DE VERÃO</p>
+                    <button class="bg-yellow-400 text-white font-bold text-[1.2vw] p-[0.5vw] rounded-[1vw] hover:bg-yellow-500">VER PROMOÇÕES</button>
+                </div>
+                <div class="absolute top-[5%] right-[5%] flex gap-[2vw] items-center">
+                    <i class="text-white fa-solid fa-magnifying-glass"></i>
+                    <i class="text-white fa-solid fa-cart-shopping"></i>
+                    <i class="text-white fa-solid fa-user"></i>
+                </div>
+        </div>
+        <div class="h-[10%] bg-yellow-400 flex justify-evenly items-center shadow-md">
+            <button onclick="trocar('OUTLET')" class="text-[1.6vw] text-white font-bold">OUTLET</button>
+            <button onclick="trocar('LANÇAMENTOS')" class="text-[1.6vw] text-white font-bold">LANÇAMENTOS</button>
+            <button onclick="trocar('MAIS VENDIDOS')" class="text-[1.6vw] text-white font-bold">MAIS VENDIDOS</button>
+            <button onclick="trocar('SOBRE')" class="text-[1.6vw] text-white font-bold">SOBRE</button>
+        </div>
+        <div class="h-[67%] space-y-[1vw]">
+            <div class="h-[12%] flex justify-center items-end">
+                <p class="text-yellow-400 font-bold text-[1.6vw]">{{pagina}}</p>
+            </div>
+            <div class="h-[88%] flex justify-center items-center flex-wrap gap-[1vw]" v-if="pagina == 'LANÇAMENTOS'">
+                <div v-for="sla in lancamentos" class="w-[20vw] h-[25vw] bg-slate-100 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] flex justify-center items-center flex-col gap-[1vw]">
+                    <img class="h-[50%]" :src='sla.img'>
+                    <p class="font-bold text-[1.6vw]">{{sla.name}}</p>
+                    <p>R$ {{sla.price}}</p>
+                    <button class="bg-blue-500 text-white p-[1vw] rounded-[0.4vw] hover:bg-blue-600">ADCIONAR AO CARRINHO</button>
+                </div>
+            </div>
+            <div class="h-[88%] flex justify-center items-center flex-wrap gap-[1vw]" v-if="pagina == 'OUTLET'">
+                <div v-for="sla in outlet" class="w-[20vw] h-[25vw] bg-slate-100 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] flex justify-center items-center flex-col gap-[1vw]">
+                    <img class="h-[50%]" :src='sla.img'>
+                    <p class="font-bold text-[1.6vw]">{{sla.name}}</p>
+                    <p>R$ {{sla.price}}</p>
+                    <button class="bg-blue-500 text-white p-[1vw] rounded-[0.4vw] hover:bg-blue-600">ADCIONAR AO CARRINHO</button>
+                </div>
+            </div>
+            <div class="h-[88%] flex justify-center items-center flex-wrap gap-[1vw]" v-if="pagina == 'MAIS VENDIDOS'">
+                <div v-for="sla in maisVendidos" class="w-[20vw] h-[25vw] bg-slate-100 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)] flex justify-center items-center flex-col gap-[1vw]">
+                    <img class="h-[50%]" :src='sla.img'>
+                    <p class="font-bold text-[1.6vw]">{{sla.name}}</p>
+                    <p>R$ {{sla.price}}</p>
+                    <button class="bg-blue-500 text-white p-[1vw] rounded-[0.4vw] hover:bg-blue-600">ADCIONAR AO CARRINHO</button>
+                </div>
+            </div>
+            <div class="h-[88%] flex justify-center items-center flex-wrap gap-[1vw]" v-if="pagina == 'SOBRE'">
+                <p class="text-[2vw] text-center">A Colorê é uma loja de roupas infantis que une conforto, criatividade e estilo em cada peça. Com estampas exclusivas, cores vibrantes e tecidos sustentáveis, nossas coleções são pensadas para acompanhar a infância com liberdade e alegria. Priorizamos o bem-estar dos pequenos, oferecendo roupas que respeitam seus movimentos e despertam a imaginação. Na Colorê, vestir é brincar, sonhar e crescer com leveza — sempre com muito amor e responsabilidade.</p>
+            </div>
+        </div>
+    </div>
+    <div id="popupOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <!-- Conteúdo do popup -->
+  <div class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md relative">
+    <button onclick="fecharPopup()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl">&times;</button>
+    <h2 class="text-xl font-bold mb-4">Bem-vindo à Promo Junina!</h2>
+    <p class="mb-4">
+      Aproveite nossa coleção especial de São João com looks incríveis para os pequenos! 🌽🎉
+    </p>
+    <button onclick="window.open('/hot.html')" class="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700">
+      IR ATE A COLEÇÃO
+    </button>
+  </div>
+</div>
+    <script src="script.js"></script>
+       <script>
+ function abrirPopup() {
+    document.getElementById('popupOverlay').classList.remove('hidden');
+  }
+
+  function fecharPopup() {
+    document.getElementById('popupOverlay').classList.add('hidden');
+  }
+
+  abrirPopup()
+
+    </script>
+</body>
+
+</html>
